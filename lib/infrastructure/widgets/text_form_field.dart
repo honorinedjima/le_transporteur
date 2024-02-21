@@ -25,7 +25,7 @@ class AuthInputWidget extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(vertical: 10),
         hintText: hint,
         prefixIcon: Icon(icon),
-        fillColor: Colors.grey,
+        fillColor: Color(0XF2F2F2),
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(
