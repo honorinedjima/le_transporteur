@@ -36,5 +36,10 @@ class Nav {
       page: () => const RegisterScreen(),
       binding: RegisterControllerBinding(),
     ),
+    GetPage(
+      name: Routes.LOGIN,
+      page: () => const LoginScreen(),
+      binding: LoginControllerBinding(),
+    ),
   ];
 }

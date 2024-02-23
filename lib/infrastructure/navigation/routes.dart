@@ -6,4 +6,5 @@ class Routes {
 
   static const HOME = '/home';
   static const REGISTER = '/register';
+  static const LOGIN = '/login';
 }
