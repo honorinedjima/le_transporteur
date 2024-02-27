@@ -85,6 +85,11 @@ class RegisterScreen extends GetView<RegisterController> {
                                       if (/*value!.trim().isEmpty*/ GetUtils.isBlank(value)==true) {
                                         return "Veuillez entrer votre nom";
                                       }
+                                      // Vérifier si la valeur contient des chiffres
+                                      RegExp regex = RegExp(r'\d');
+                                      if (regex.hasMatch(value!)) {
+                                        return "Le nom ne peut pas contenir de chiffres";
+                                      }
                                       return null;
                                     },
                                     controller: controller.nomController,
@@ -95,6 +100,17 @@ class RegisterScreen extends GetView<RegisterController> {
                                     height: Get.height * 0.02,
                                   ),
                                   AuthInputWidget(
+                                    validator: (value) {
+                                      if (/*value!.trim().isEmpty*/ GetUtils.isBlank(value)==true) {
+                                        return "Veuillez entrer votre prénom";
+                                      }
+                                      // Vérifier si la valeur contient des chiffres
+                                      RegExp regex = RegExp(r'\d');
+                                      if (regex.hasMatch(value!)) {
+                                        return "Le nom ne peut pas contenir de chiffres";
+                                      }
+                                      return null;
+                                    },
                                     controller: controller.prenomController,
                                     hint: TextFr.PRENOM,
                                     icon: Icons.person,
@@ -111,6 +127,19 @@ class RegisterScreen extends GetView<RegisterController> {
                                     height: Get.height * 0.02,
                                   ),
                                   AuthInputWidget(
+                                    validator: (value){
+                                      if (/*value!.trim().isEmpty*/ GetUtils.isBlank(value)==true) {
+                                        return "Veuillez entrer votre date de naissance";
+                                      }
+
+                                      DateTime selectedDate= DateTime.parse(value!);
+                                      DateTime today = DateTime.now();
+                                      
+                                      if(selectedDate.isAfter(today)){
+                                        return "La date de naissance ne peut pas être postérieure \n à la date d'aujourd'hui";
+                                      }
+                                      return null;
+                                    },
                                     controller:
                                         controller.dateNaissanceController,
                                     readOnly: true,
@@ -224,6 +253,19 @@ class RegisterScreen extends GetView<RegisterController> {
                                   height: Get.height * 0.05,
                                 ),
                                 AuthInputWidget(
+                                  validator: (value){
+                                    if (/*value!.trim().isEmpty*/ GetUtils.isBlank(value)==true) {
+                                      return "Veuillez entrer un mot de passe";
+                                    }
+                                    if (value!.length < 8) {
+                                      return 'Le mot de passe doit contenir au moins 8 caractères';
+                                    }
+                                    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*(),.?":{}|<>]).{8,}$');
+                                    if(!regex.hasMatch(value!)){
+                                      return "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial";
+                                    }
+                                    return null;
+                                  },
                                   controller: controller.passwordController,
                                   hint: TextFr.PASSWORD,
                                   icon: Icons.lock,
@@ -232,6 +274,17 @@ class RegisterScreen extends GetView<RegisterController> {
                                   height: Get.height * 0.02,
                                 ),
                                 AuthInputWidget(
+                                  validator: (value){
+                                    if (/*value!.trim().isEmpty*/ GetUtils.isBlank(value)==true) {
+                                      return "Veuillez confirmer le mot de passe";
+                                    }
+
+                                    print(controller.passwordController.text);
+                                    if(controller.passwordConfirmController.text != controller.passwordController.text){
+                                      return "Les deux mots passe doivent être identiques";
+                                    }
+                                    return null;
+                                  },
                                   controller:
                                       controller.passwordConfirmController,
                                   hint: TextFr.COMFIRM_PASSWORD,
@@ -246,9 +299,9 @@ class RegisterScreen extends GetView<RegisterController> {
                                     //hintText: hint,
                                     //prefixIcon: Icon(icon),
                                     //fillColor: Color(0XFFF2F2F2),
-                                    color: Color(0XFFF2F2F2),
+                                    color: const Color(0XFFF2F2F2),
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(8.0)),
+                                        const BorderRadius.all(Radius.circular(8.0)),
                                     border: Border.all(
                                       style: BorderStyle.none,
                                     ),
